@@ -1,0 +1,16 @@
+/* UNIVERSAL/GLOBAL STYLES START */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+*::selection {
+    background-color: transparent;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+/* UNIVERSAL/GLOBAL STYLES END */
