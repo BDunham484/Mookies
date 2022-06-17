@@ -20,7 +20,11 @@ html, body {
     height: auto;
 }
 
-/* .cover-image img {
-    width: 100px;
-    height: 100px;
-} */
+.missing-cover {
+    width: 175px;
+    height: 250px;
+    background-color: grey;
+    border: solid 2px black;
+    color: antiquewhite;
+    font-size: x-large;
+}

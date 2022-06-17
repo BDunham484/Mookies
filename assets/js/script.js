@@ -39,7 +39,12 @@ var getBooks = function(subject, workCount) {
                 console.log(data)
                 for (var i = 0; i < data.works.length; i++) {
                     var title = data.works[i].title
-                    var author = data.works[i].authors[0].name
+                    if (data.works[i].authors.length === 0) {
+                        var author = "Author Unknown"
+                    } else {
+                        var author = data.works[i].authors[0].name
+                    }
+                    
                     var coverId = data.works[i].cover_id
                     console.log("title: " + title)
                     console.log("author: " + author)
@@ -84,14 +89,18 @@ var createListItems = function(subject, title, author, coverId) {
 
     //create cover list-item for bookList ul
     var coverListItem = document.createElement("li");
-    //add class
-    coverListItem.className = "cover-image"
-    //provide image link for coverListItem
+    if (coverId === null) {
+        coverListItem.className = "missing-cover"
+        coverListItem.textContent = "Cover Missing"
+    } else {
+        //provide image link for coverListItem
     coverListItem.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' />";
+    }
+    
     //append append cover li to bookList ul
     bookList.appendChild(coverListItem)
 
 }
 
 
-getWorkCount("mystery")
+getWorkCount("horror")
