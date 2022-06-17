@@ -14,3 +14,13 @@ html, body {
     overflow-x: hidden;
 }
 /* UNIVERSAL/GLOBAL STYLES END */
+
+.cover-image {
+    width: 100px;
+    height: auto;
+}
+
+/* .cover-image img {
+    width: 100px;
+    height: 100px;
+} */
