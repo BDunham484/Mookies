@@ -15,10 +15,21 @@ html, body {
 }
 /* UNIVERSAL/GLOBAL STYLES END */
 
-.cover-image {
-    width: 100px;
-    height: auto;
+/* HEADER STYLES START */
+.title:not(:last-child) {
+    margin-top: 1.5rem;
 }
+/* HEADER STYLES END */
+
+/* MAIN STYLES START */
+main {
+    margin-top: 9rem;
+}
+
+form {
+    width: 65%;
+}
+/* MAIN STYLES END */
 
 .missing-cover {
     width: 175px;

@@ -1,4 +1,7 @@
-var bookSearchResultsEl = document.querySelector("#book-results")
+var bookSearchResultsEl = document.querySelector("#book-results");
+var suggestionButtonEl = document.querySelector("#get-suggestions");
+var searchInputEl = document.querySelector("#search-input");
+var bookListEl = document.querySelector("#book-results")
 
 
 
@@ -6,6 +9,10 @@ var bookSearchResultsEl = document.querySelector("#book-results")
 
 //function that gets lthe number of search results
 var getNumFound = function(searchQuery)  {
+    while (bookListEl.firstChild) {
+        bookListEl.removeChild(bookListEl.firstChild);
+    }
+
     var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery
 
     fetch(apiUrl).then(function(response) {
@@ -103,4 +110,13 @@ var createListItems = function(subject, title, author, coverId) {
 
 
 
-getNumFound("civil war")
+// getNumFound("star wars")
+
+suggestionButtonEl.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("button clicked")
+    var searchQuery = searchInputEl.value.trim();
+    console.log(searchQuery)
+
+    getNumFound(searchQuery)
+})

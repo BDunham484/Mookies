@@ -4,13 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Movie/Book Thing</title>
 </head>
 <body>
-    <ul id="book-results">
+    <header>
+        <nav class="navbar is-dark is-fixed-top is-flex is-justify-content-center is-align-content-center" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+            <h1 class="title has-text-white is-size-1">MOOKIES</h1>
+              
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          </nav>
+    </header>
+    <main>
+        <div class="container mt-6 has-text-centered">
+            <h2 class="is-size-4">
+                Staying In?  Let us help keep you entertained while you lounge around the house.  Tell us what kind of movie or book you're in the mood for and let our suggestions fill the void.
+            </h2>
+        </div>
+        <form>
+            <div class="field">
+                <div class="control is-loading">
+                    <input class="input is-medium is-rounded" type="text" id="search-input" placeholder="Horror....  Science-Fiction.... Action .....">
+                </div>
+                
+                    <input class="button is-warning my-4" type="submit" id="get-suggestions" value="Get Suggestions">
+                    <input class="button is-warning my-4" type="submit" id="feeling-lucky" value="Feeling Lucky?">
+
+            </div>
+        </form>
+        <section>
+            <div class="columns">
+                <div class="column">
+                    <h3 class="my-4">Grab Some Popcorn....</h3>
+                </div>
+                <div class="column">
+                    <h3 class="my-4">Or curl up with a good book!</h3>
+                    <ul id="book-results">
         
-    </ul>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+
+
+        
+    </main>
+    
 
     <script src="./assets/js/script.js"></script>
 </body>
