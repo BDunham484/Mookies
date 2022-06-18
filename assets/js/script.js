@@ -3,55 +3,18 @@ var bookSearchResultsEl = document.querySelector("#book-results")
 
 
 
-//function that gets the number of books listed in openlibrary under the searched genre
-var getWorkCount = function(subject) {
-    var apiUrl = "https://openlibrary.org/subjects/" + subject + ".json?limit=5"
+
+//function that gets lthe number of search results
+var getNumFound = function(searchQuery)  {
+    var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery
 
     fetch(apiUrl).then(function(response) {
-        //request was succesful
         if (response.ok) {
             response.json().then(function(data) {
                 console.log(data)
-                var workCount = data.work_count
-                console.log(workCount)
-                getBooks(subject, workCount)
-            })
-        }
-    })
-}
-
-
-
-
-
-
-var getBooks = function(subject, workCount) {
-    //randomize search result display offset based off the number of works in open library for that genre
-    var randoOffsetNum = Math.floor(Math.random() * (workCount - 6))
-    console.log(randoOffsetNum)
-    //capture api url with user input subject and randomized offset number
-    var apiUrl = "https://openlibrary.org/subjects/" + subject + ".json?limit=5&offset=" + randoOffsetNum
-    //fetch request 
-    fetch(apiUrl).then(function(response) {
-        //request was succesful
-        if (response.ok) {
-            response.json().then(function(data) {
-                console.log(data)
-                for (var i = 0; i < data.works.length; i++) {
-                    var title = data.works[i].title
-                    if (data.works[i].authors.length === 0) {
-                        var author = "Author Unknown"
-                    } else {
-                        var author = data.works[i].authors[0].name
-                    }
-                    
-                    var coverId = data.works[i].cover_id
-                    console.log("title: " + title)
-                    console.log("author: " + author)
-                    console.log("cover_id: " + coverId)
-                    createListItems(subject, title, author, coverId)
-                };
-                
+                var numFound = data.numFound
+                console.log(numFound)
+                getSearchResults(searchQuery, numFound)
             });
         };
     });
@@ -60,8 +23,43 @@ var getBooks = function(subject, workCount) {
 
 
 
+//function that takes the search query and the number of results to randomize the selections
+var getSearchResults = function(searchQuery, numFound) {
+    for (var i = 0; i < 5; i++) {
+         //randomize search result display offset based off the number of results in open library for that query
+        var randoOffsetNum = Math.floor(Math.random() * (numFound - 6))
+        console.log(randoOffsetNum)
 
-//function that display results from getBooks()
+
+
+        var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery + "&limit=1&offset=" + randoOffsetNum
+        //fetches data from open library and saves the necessary data to variables
+        fetch(apiUrl).then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                console.log(data)
+                var title = data.docs[0].title
+                console.log("the title: " + title)
+                if (!data.docs[0].author_name) {
+                    var author = "Author Unknown"
+                } else {
+                    var author = data.docs[0].author_name[0]
+                }
+                console.log("the author: " + author)
+                var coverId = data.docs[0].cover_i
+                console.log("cover id: " + coverId)
+                createListItems(searchQuery, title, author, coverId)
+                });
+            };
+        });
+    };
+};
+
+
+
+
+
+//function that display results from getSearchResults()
 var createListItems = function(subject, title, author, coverId) {
     //create list-items for each book
     var resultsListItem = document.createElement("li");
@@ -89,7 +87,7 @@ var createListItems = function(subject, title, author, coverId) {
 
     //create cover list-item for bookList ul
     var coverListItem = document.createElement("li");
-    if (coverId === null) {
+    if (coverId === undefined) {
         coverListItem.className = "missing-cover"
         coverListItem.textContent = "Cover Missing"
     } else {
@@ -103,4 +101,6 @@ var createListItems = function(subject, title, author, coverId) {
 }
 
 
-getWorkCount("horror")
+
+
+getNumFound("civil war")
