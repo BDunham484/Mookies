@@ -11,15 +11,24 @@
 }
 
 html, body {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    min-height: 100vh;
 }
 /* UNIVERSAL/GLOBAL STYLES END */
 
+
+
+
+
 /* HEADER STYLES START */
-.title:not(:last-child) {
-    margin-top: 1.5rem;
+h1 {
+    margin: 1.5rem 0;
 }
 /* HEADER STYLES END */
+
+
+
+
 
 /* MAIN STYLES START */
 main {
@@ -29,13 +38,44 @@ main {
 form {
     width: 65%;
 }
-/* MAIN STYLES END */
+
+.image {
+    width: 200px;
+}
+
+
+#book-results {
+    width: 30vw;
+    height: 50vh;
+    margin: 0 auto;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#959799+0,7db9e8+100&1+0,0+100 */
+    background: -moz-linear-gradient(top,  rgba(149,151,153,1) 0%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(149,151,153,1) 0%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(149,151,153,1) 0%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+}
+
+.card {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.card-content {
+    background-color: rgb(251, 246, 240);
+}
+
+figure {
+    border: solid 2px black;
+}
 
 .missing-cover {
-    width: 175px;
+    width: 200px;
     height: 250px;
     background-color: grey;
     border: solid 2px black;
-    color: antiquewhite;
+    color: rgb(251, 246, 240);
     font-size: x-large;
+
 }
+/* MAIN STYLES END */
+
