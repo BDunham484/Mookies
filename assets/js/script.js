@@ -11,7 +11,7 @@ var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fi
 
 
 
-//function that gets lthe number of search results
+//function that gets the number of search results
 var getNumFound = function(searchQuery)  {
     while (bookListEl.firstChild) {
         bookListEl.removeChild(bookListEl.firstChild);
@@ -74,14 +74,14 @@ var getSearchResults = function(searchQuery, numFound) {
 
 
 
-//function that display results from getSearchResults()
+//function that displays results from getSearchResults()
 var createListItems = function(subject, title, author, coverId) {
     //create list-items for each book
     var resultsListItem = document.createElement("li");
     resultsListItem.className = "pt-5"
     //append list-item to ul #book-results
     bookSearchResultsEl.appendChild(resultsListItem);
-
+    //begin dunamically creating bulma css card to display book search results
     var card = document.createElement("div")
     card.className = "card";
     resultsListItem.appendChild(card)
@@ -100,11 +100,12 @@ var createListItems = function(subject, title, author, coverId) {
 
     var cardFigure = document.createElement("figure");
     cardFigure.classList.add("image", "is-48x58");
+    //provide alternative display in case there is no book cover
     if (coverId === undefined) {
             cardFigure.classList.add("missing-cover", "has-text-centered", "pt-6")
             cardFigure.textContent = "Cover Missing"
         } else {
-            //provide image link for coverListItem
+        //provide image link for coverListItem
         cardFigure.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' />";
         }
     mediaLeft.appendChild(cardFigure);
@@ -112,85 +113,52 @@ var createListItems = function(subject, title, author, coverId) {
     var content = document.createElement("div");
     content.className = "content";
     cardContent.appendChild(content);
-
+    //create and append the book title
     var cardTitle = document.createElement("p");
     cardTitle.classList.add("title", "is-5");
     cardTitle.textContent = title;
     content.appendChild(cardTitle)
-
+    //create and append the author
     var cardAuthor = document.createElement("p");
     cardAuthor.classList.add("subtitle", "is-7");
     cardAuthor.textContent = author;
     content.appendChild(cardAuthor);
-
-    
-
-
-    // //create new ul to be nested as list-item in resultsListItem
-    // var bookList = document.createElement("ul");
-    // //append new ul to resultsListItem
-    // resultsListItem.appendChild(bookList);
-
-    // //create title list-items for bookList ul
-    // var titleListItem = document.createElement("li");
-    // //provide the title as text input
-    // titleListItem.textContent = title
-    // //append title li to bookList ul
-    // bookList.appendChild(titleListItem);
-
-    // //create author list-item for booklist ul
-    // var authorListItem = document.createElement("li");
-    // //provide the author as textContent
-    // authorListItem.textContent = author;
-    // //append to list
-    // bookList.appendChild(authorListItem);
-
-    // //create cover list-item for bookList ul
-    // var coverListItem = document.createElement("li");
-    // if (coverId === undefined) {
-    //     coverListItem.className = "missing-cover"
-    //     coverListItem.textContent = "Cover Missing"
-    // } else {
-    //     //provide image link for coverListItem
-    // coverListItem.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' />";
-    // }
-    
-    // //append append cover li to bookList ul
-    // bookList.appendChild(coverListItem)
-
 }
 
 
 
 
-// getNumFound("star wars")
-
+//event listener for the 'get suggestions' button
 suggestionBtnEl.addEventListener("click", function(event) {
     event.preventDefault();
     console.log("'Get Suggestions' button clicked")
     var searchQuery = searchInputEl.value.trim();
     console.log("search input: " + searchQuery)
+    //convert query for 'history' to 'world history'
+    //if not there are too many results and fetch response times out
     if (searchQuery.toLowerCase() === "history") {
         searchQuery = "world history"
         console.log("search input is now: " + searchQuery)
         getNumFound(searchQuery);
     } else {
         getNumFound(searchQuery)
-    }
-    
-})
+    } 
+});
 
 
 
 
 
-
+//event listener for 'feeling lucky' button
 feelingLuckyBtnEl.addEventListener("click", function() {
     console.log("'Feeling Lucky' Btn Clicked");
+    //creates random number for index of genreArr[]
     var genreIndex = Math.floor(Math.random() * (genreArr.length -1))
     console.log("random genre index: " + genreIndex)
     console.log("random genre selected: " + genreArr[genreIndex]);
+    //assigns the randomly selected genre text to search bar
     searchInputEl.value = genreArr[genreIndex];
+    //calls function to begin search for randomly selected genre
     getNumFound(genreArr[genreIndex]);
 })
 
