@@ -5,7 +5,7 @@ var searchInputEl = document.querySelector("#search-input");
 var bookListEl = document.querySelector("#book-results")
 var bookResultsColEl = document.querySelector("#book-results-column")
 
-var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fiction", "horror", "drama", "fantasy", "mystery", "western", "crime", "fiction", "adventure", "experimental", "disaster", "war", "documentary", "gangster", "animation", "indie", "romantic comedy", "cartoon", "children"]
+var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fiction", "horror", "drama", "fantasy", "mystery", "western", "crime", "fiction", "adventure", "disaster", "war", "gangster", "animation", "romantic comedy", "cartoon", "children"]
 
 
 
@@ -25,10 +25,13 @@ var getNumFound = function(searchQuery)  {
                 console.log(data)
                 var numFound = data.numFound
                 if (numFound === 0 || numFound === -1) {
-                    getNumFound(searchQuery);
+                    alert("Sorry, but there are no mathces.  Please enter a different search query.")
+                    searchInputEl.value = "";
+                } else {
+                  console.log("The number of results found with this query: " + numFound)
+                  getSearchResults(searchQuery, numFound)
                 }
-                console.log("The number of results found with this query: " + numFound)
-                getSearchResults(searchQuery, numFound)
+               
             });
         } else {
             console.log("There was an error with the response");
@@ -45,7 +48,10 @@ var getNumFound = function(searchQuery)  {
 var getSearchResults = function(searchQuery, numFound) {
     for (var i = 0; i < 5; i++) {
          //randomize search result display offset based off the number of results in open library for that query
-        var randoOffsetNum = Math.floor(Math.random() * (numFound - 6))
+        var randoOffsetNum = Math.floor(Math.random() * (numFound - 1))
+        if (randoOffsetNum === 0) {
+          var randoOffsetNum = 1;
+        }
         console.log("random result number: " + randoOffsetNum)
 
 
@@ -56,17 +62,43 @@ var getSearchResults = function(searchQuery, numFound) {
             if (response.ok) {
                 response.json().then(function(data) {
                 console.log(data)
-                var title = data.docs[0].title
-                console.log("the title: " + title)
-                if (!data.docs[0].author_name) {
+                if (data.docs[0].publisher === undefined) {
+                  var title = data.docs[0].title
+                  console.log("the title: " + title)
+                  if (!data.docs[0].author_name) {
+                      var author = "Author Unknown"
+                  } else {
+                      var author = data.docs[0].author_name[0]
+                  }
+                  console.log("the author: " + author)
+                  var coverId = data.docs[0].cover_i
+                  console.log("cover id: " + coverId)
+                  createListItems(searchQuery, title, author, coverId)
+                } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
+                  var title = "Title Unknown"
+                  if (!data.docs[0].author_name) {
                     var author = "Author Unknown"
+                  } else {
+                    var author = "Author Unknown"
+                  }
+                  var coverId = undefined
+                  createListItems(searchQuery, title, author, coverId)
                 } else {
-                    var author = data.docs[0].author_name[0]
+                  var title = data.docs[0].title
+                  console.log("the title: " + title)
+                  if (!data.docs[0].author_name) {
+                      var author = "Author Unknown"
+                  } else {
+                      var author = data.docs[0].author_name[0]
+                  }
+                  console.log("the author: " + author)
+                  var coverId = data.docs[0].cover_i
+                  console.log("cover id: " + coverId)
+                  createListItems(searchQuery, title, author, coverId)
                 }
-                console.log("the author: " + author)
-                var coverId = data.docs[0].cover_i
-                console.log("cover id: " + coverId)
-                createListItems(searchQuery, title, author, coverId)
+                
+               
+                
                 });
             };
         });
