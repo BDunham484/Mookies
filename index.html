@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="is-clipped">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -83,9 +83,43 @@
                 </section>
             </div>
         </section>
+
+       
+
+
+<!-- NO MATCHES MODAL -->
+<div id="no-matches-modal" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+      <div class="box">
+        <p>Oops!</p>
+        <h3>Sorry, but there are no mathces to your search. Please try again.</h3>
+      </div>
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+
+        <!-- <div class="modal" id="no-matches-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                  <p class="modal-card-title">Error</p>
+                  <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                  
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="modal-close is-large" aria-label="close"></button>
+                </footer>
+              </div>
+          </div> -->
         
 
-        <div id="modal-js-example" class="modal">
+        <!-- <div id="modal-js-example" class="modal">
             <div class="modal-background"></div>
           
             <div class="modal-content">
@@ -107,10 +141,13 @@
             </div>
           
             <button class="modal-close is-large" aria-label="close"></button>
-          </div>
+          </div> -->
         
     </main>
-    
+    <footer>
+        <button class="js-modal-trigger" id="modal-trigger" data-target="no-matches-modal">
+        </button>
+    </footer>
 
     <script src="./assets/js/script.js"></script>
 </body>

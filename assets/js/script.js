@@ -4,6 +4,8 @@ var feelingLuckyBtnEl = document.querySelector("#feeling-lucky");
 var searchInputEl = document.querySelector("#search-input");
 var bookListEl = document.querySelector("#book-results")
 var bookResultsColEl = document.querySelector("#book-results-column")
+// var noMatchesModalEl = document.querySelector("#no-matches-modal");
+var closeModalEl = document.querySelector("#modal-trigger");
 
 var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fiction", "horror", "drama", "fantasy", "mystery", "western", "crime", "fiction", "adventure", "disaster", "war", "gangster", "animation", "romantic comedy", "cartoon", "children"]
 
@@ -25,7 +27,8 @@ var getNumFound = function(searchQuery)  {
                 console.log(data)
                 var numFound = data.numFound
                 if (numFound === 0 || numFound === -1) {
-                    alert("Sorry, but there are no mathces.  Please enter a different search query.")
+                    // alert("Sorry, but there are no mathces.  Please enter a different search query.")
+                    closeModalEl.click();
                     searchInputEl.value = "";
                 } else {
                   console.log("The number of results found with this query: " + numFound)
@@ -40,6 +43,12 @@ var getNumFound = function(searchQuery)  {
         console.log("Cannot compute!");
     });
 };
+
+
+
+
+
+
 
 
 
@@ -248,3 +257,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+

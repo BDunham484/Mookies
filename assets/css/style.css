@@ -79,3 +79,15 @@ figure {
 }
 /* MAIN STYLES END */
 
+/* FOOTER STYLES START */
+footer {
+    position: relative;
+}
+
+#modal-trigger {
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+}
+/* FOOTER STYLES END */
+
