@@ -4,11 +4,12 @@ var feelingLuckyBtnEl = document.querySelector("#feeling-lucky");
 var searchInputEl = document.querySelector("#search-input");
 var bookListEl = document.querySelector("#book-results")
 var bookResultsColEl = document.querySelector("#book-results-column")
-// var noMatchesModalEl = document.querySelector("#no-matches-modal");
 var closeModalEl = document.querySelector("#modal-trigger");
+var modalSectionEl = document.querySelector(".modal-section");
+var mainSectionEl = document.querySelector("main");
+var modalBackgroundEl = document.querySelector(".modal-background");
 
 var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fiction", "horror", "drama", "fantasy", "mystery", "western", "crime", "fiction", "adventure", "disaster", "war", "gangster", "animation", "romantic comedy", "cartoon", "children"]
-
 
 
 
@@ -27,7 +28,6 @@ var getNumFound = function(searchQuery)  {
                 console.log(data)
                 var numFound = data.numFound
                 if (numFound === 0 || numFound === -1) {
-                    // alert("Sorry, but there are no mathces.  Please enter a different search query.")
                     closeModalEl.click();
                     searchInputEl.value = "";
                 } else {
@@ -54,7 +54,7 @@ var getNumFound = function(searchQuery)  {
 
 
 //function that takes the search query and the number of results to randomize the selections
-var getSearchResults = function(searchQuery, numFound) {
+var getSearchResults = function(searchQuery, numFound, num) {
     for (var i = 0; i < 5; i++) {
          //randomize search result display offset based off the number of results in open library for that query
         var randoOffsetNum = Math.floor(Math.random() * (numFound - 1))
@@ -62,11 +62,10 @@ var getSearchResults = function(searchQuery, numFound) {
           var randoOffsetNum = 1;
         }
         console.log("random result number: " + randoOffsetNum)
-
-
+        
 
         var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery + "&limit=1&offset=" + randoOffsetNum
-        //fetches data from open library and saves the necessary data to variables
+        //fetches data from open library and saves the necessary data to variable
         fetch(apiUrl).then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
@@ -82,7 +81,9 @@ var getSearchResults = function(searchQuery, numFound) {
                   console.log("the author: " + author)
                   var coverId = data.docs[0].cover_i
                   console.log("cover id: " + coverId)
-                  createListItems(searchQuery, title, author, coverId)
+                  var randoOffsetNum = data.offset;
+                  console.log(randoOffsetNum)
+                  createListItems(searchQuery, title, author, coverId, randoOffsetNum)
                 } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
                   var title = "Title Unknown"
                   if (!data.docs[0].author_name) {
@@ -91,7 +92,9 @@ var getSearchResults = function(searchQuery, numFound) {
                     var author = "Author Unknown"
                   }
                   var coverId = undefined
-                  createListItems(searchQuery, title, author, coverId)
+                  var randoOffsetNum = data.offset;
+                  console.log(randoOffsetNum)
+                  createListItems(searchQuery, title, author, coverId, randoOffsetNum)
                 } else {
                   var title = data.docs[0].title
                   console.log("the title: " + title)
@@ -103,7 +106,10 @@ var getSearchResults = function(searchQuery, numFound) {
                   console.log("the author: " + author)
                   var coverId = data.docs[0].cover_i
                   console.log("cover id: " + coverId)
-                  createListItems(searchQuery, title, author, coverId)
+                  var randoOffsetNum = data.offset;
+                  console.log(randoOffsetNum)
+                  createListItems(searchQuery, title, author, coverId, randoOffsetNum)
+
                 }
                 
                
@@ -119,7 +125,7 @@ var getSearchResults = function(searchQuery, numFound) {
 
 
 //function that displays results from getSearchResults()
-var createListItems = function(subject, title, author, coverId) {
+var createListItems = function(subject, title, author, coverId, randoOffsetNum) {
     //create list-items for each book
     var resultsListItem = document.createElement("li");
     resultsListItem.className = "pt-5"
@@ -127,7 +133,8 @@ var createListItems = function(subject, title, author, coverId) {
     bookSearchResultsEl.appendChild(resultsListItem);
     //begin dunamically creating bulma css card to display book search results
     var card = document.createElement("div")
-    card.className = "card";
+    card.classList.add("card", "js-modal-trigger");
+    card.setAttribute("data-target", "modal-" + randoOffsetNum)
     resultsListItem.appendChild(card)
 
     var cardContent = document.createElement("div")
@@ -148,9 +155,11 @@ var createListItems = function(subject, title, author, coverId) {
     if (coverId === undefined) {
             cardFigure.classList.add("missing-cover", "has-text-centered", "pt-6")
             cardFigure.textContent = "Cover Missing"
+            cardFigure.setAttribute("data-target", "modal-" + randoOffsetNum)
         } else {
         //provide image link for coverListItem
-        cardFigure.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' />";
+        cardFigure.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' data-target='modal-" + randoOffsetNum + "'/>";
+        
         }
     mediaLeft.appendChild(cardFigure);
 
@@ -167,6 +176,75 @@ var createListItems = function(subject, title, author, coverId) {
     cardAuthor.classList.add("subtitle", "is-7");
     cardAuthor.textContent = author;
     content.appendChild(cardAuthor);
+
+    createModals(title, author, coverId, randoOffsetNum)
+}
+
+
+
+
+//function that creates modals for each search result
+var createModals = function(title, author, coverId, randoOffsetNum) {
+  var modal = document.createElement("div");
+  modal.setAttribute("id", "modal-" + randoOffsetNum);
+  modal.className = "modal";
+  modalSectionEl.appendChild(modal);
+
+  var modalBackground = document.createElement("div");
+  modalBackground.className = "modal-background";
+  modal.appendChild(modalBackground);
+
+  var modalContent = document.createElement("div");
+  modalContent.className = "modal-content";
+  modal.appendChild(modalContent);
+
+  // var modalBox = document.createElement("div");
+  // modalBox.className = "box";
+  // modalContent.appendChild(modalBox);
+
+  var modalCard = document.createElement("div");
+  modalCard.classList.add("card");
+  modalContent.appendChild(modalCard);
+
+  var modalCardContent = document.createElement("div");
+  modalCardContent.className = "card-content";
+  modalCard.appendChild(modalCardContent);
+
+  var modalMedia = document.createElement("div");
+  modalMedia.className = "media";
+  modalCardContent.appendChild(modalMedia);
+
+  var modalMediaLeft = document.createElement("div");
+  modalMediaLeft.className = "media-left";
+  modalMedia.appendChild(modalMediaLeft);
+
+  var modalFigure = document.createElement("figure");
+  modalFigure.classList.add("image", "is-48x58");
+  modalFigure.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' data-target='modal-" + randoOffsetNum + "'/>"
+  modalMediaLeft.appendChild(modalFigure);
+
+  var modalLowerContent = document.createElement("div");
+  modalLowerContent.className = "content";
+  modalCardContent.appendChild(modalLowerContent);
+
+  var modalTitleP = document.createElement("p");
+  modalTitleP.classList.add("title", "is-5");
+  modalTitleP.textContent = title;
+  modalLowerContent.appendChild(modalTitleP);
+
+  var modalAuthorP = document.createElement("p");
+  modalAuthorP.classList.add("subtitle", "is-7");
+  modalAuthorP.textContent = author;
+  modalLowerContent.appendChild(modalAuthorP);
+
+  
+
+
+  var modalButton = document.createElement("button");
+  modalButton.classList.add("modal-close", "is-large");
+  modalButton.setAttribute("aria-label", "close")
+  modal.appendChild(modalButton);
+
 }
 
 
@@ -207,6 +285,34 @@ feelingLuckyBtnEl.addEventListener("click", function() {
 })
 
 
+
+
+
+
+//eventlistener for dynamic list items
+bookResultsColEl.addEventListener("click", function(event) {
+  var target = event.target;
+  console.log("book is clicked");
+  var targetId = "#" + target.getAttribute("data-target");
+  console.log(targetId)
+  var targetIdEl = document.querySelector(targetId);
+  targetIdEl.classList.add("is-active");
+})
+
+
+
+
+
+
+
+
+
+
+// modalBackgroundEl.addEventListener("click", function(event) {
+//   console.log("background is clicked")
+//   var target = event.target;
+//   console.log(target)
+// })
 
 
 
