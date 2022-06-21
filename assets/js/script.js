@@ -65,59 +65,7 @@ var getSearchResults = function(searchQuery, numFound) {
     fetch(apiUrl).then(function(response) {
       if (response.ok) {
           response.json().then(function(data) {
-          console.log(data)
-          if (data.docs[0].publisher === undefined) {
-            var title = data.docs[0].title
-            console.log("the title: " + title)
-            if (!data.docs[0].author_name) {
-                var author = "Author Unknown"
-            } else {
-                var author = data.docs[0].author_name[0]
-            };
-            console.log("the author: " + author)
-            var coverId = data.docs[0].cover_i
-            console.log("cover id: " + coverId)
-            var randoOffsetNum = data.offset;
-            console.log("offset #: " + randoOffsetNum)
-            var book = {
-              query: searchQuery,
-              cover: coverId,
-              title: title,
-              author: author,
-              offsetNum: randoOffsetNum
-            }
-            console.log("book object: " +JSON.stringify(book))
-            //push object to array
-            bookResultsArr.push(book)
-            //save array to local storage
-            localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
-            //call createListItems
-            createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-          } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
-            var title = "Title Unknown"
-            if (!data.docs[0].author_name) {
-              var author = "Author Unknown"
-            } else {
-              var author = "Author Unknown"
-            };
-            var coverId = undefined
-            var randoOffsetNum = data.offset;
-            console.log("offset #: " + randoOffsetNum)
-            var book = {
-              query: searchQuery,
-              cover: coverId,
-              title: title,
-              author: author,
-              offsetNum: randoOffsetNum
-            }
-            console.log("book object: " + JSON.stringify(book))
-            //push object to array
-            bookResultsArr.push(book)
-            //save array to localStorage
-            localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
-            //call createListItems
-            createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-          } else {
+            console.log(data)
             var title = data.docs[0].title
             console.log("the title: " + title)
             if (!data.docs[0].author_name) {
@@ -144,8 +92,7 @@ var getSearchResults = function(searchQuery, numFound) {
             localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
             //call createListItems()
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-          };
-        });
+          });
       };
     });
   };
