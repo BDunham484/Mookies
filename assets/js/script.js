@@ -10,6 +10,7 @@ var mainSectionEl = document.querySelector("main");
 var modalBackgroundEl = document.querySelector(".modal-background");
 
 var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fiction", "horror", "drama", "fantasy", "mystery", "western", "crime", "fiction", "adventure", "disaster", "war", "gangster", "animation", "romantic comedy", "cartoon", "children"]
+var bookResultsArr = [];
 
 
 
@@ -78,6 +79,19 @@ var getSearchResults = function(searchQuery, numFound) {
             console.log("cover id: " + coverId)
             var randoOffsetNum = data.offset;
             console.log(randoOffsetNum)
+            var book = {
+              query: searchQuery,
+              cover: coverId,
+              title: title,
+              author: author,
+              offsetNum: randoOffsetNum
+            }
+            console.log("book object: " +JSON.stringify(book))
+
+            bookResultsArr.push(book)
+            console.log(bookResultsArr)
+
+            localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
           } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
             var title = "Title Unknown"
@@ -89,6 +103,19 @@ var getSearchResults = function(searchQuery, numFound) {
             var coverId = undefined
             var randoOffsetNum = data.offset;
             console.log(randoOffsetNum)
+            var book = {
+              query: searchQuery,
+              cover: coverId,
+              title: title,
+              author: author,
+              offsetNum: randoOffsetNum
+            }
+            console.log("book object: " + JSON.stringify(book))
+
+            bookResultsArr.push(book)
+            console.log(bookResultsArr)
+
+            localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
           } else {
             var title = data.docs[0].title
@@ -103,6 +130,19 @@ var getSearchResults = function(searchQuery, numFound) {
             console.log("cover id: " + coverId)
             var randoOffsetNum = data.offset;
             console.log(randoOffsetNum)
+            var book = {
+              query: searchQuery,
+              cover: coverId,
+              title: title,
+              author: author,
+              offsetNum: randoOffsetNum
+            }
+            console.log("book object: " + JSON.stringify(book))
+
+            bookResultsArr.push(book)
+            console.log(bookResultsArr)
+
+            localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
           };
         });
@@ -111,6 +151,31 @@ var getSearchResults = function(searchQuery, numFound) {
   };
 };
 
+
+
+
+
+  //function that loads previous search results from localStorage
+  var pageLoad = function() {
+    bookResultsArr = [];
+    bookResultsArr = JSON.parse(localStorage.getItem("Books:"));
+    console.log("YO, THIS IS THE STUFF FROM LOCAL STORAGE!: " + bookResultsArr)
+    console.log(bookResultsArr.length)
+    for (var i = 0; i < bookResultsArr.length; i++) {
+      var searchQuery = bookResultsArr[i].query
+        console.log(searchQuery)
+        searchInputEl.value = searchQuery;
+      var coverId = bookResultsArr[i].cover 
+        console.log(coverId)
+      var title = bookResultsArr[i].title
+        console.log(title)
+      var author = bookResultsArr[i].author
+        console.log(author)
+      var randoOffsetNum = bookResultsArr[i].offsetNum
+        console.log(randoOffsetNum)
+      createListItems(searchQuery, title, author, coverId, randoOffsetNum)
+    }
+  }
 
 
 
@@ -170,6 +235,14 @@ var createListItems = function(subject, title, author, coverId, randoOffsetNum) 
 
     createModals(title, author, coverId, randoOffsetNum)
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -234,10 +307,18 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
 
 
 
+
+pageLoad();
+
+
+
+
 //event listener for the 'get suggestions' button
 suggestionBtnEl.addEventListener("click", function(event) {
     event.preventDefault();
     console.log("'Get Suggestions' button clicked")
+    bookResultsArr = [];
+    console.log(bookResultsArr + "cleared")
     var searchQuery = searchInputEl.value.trim();
     console.log("search input: " + searchQuery)
     //convert query for 'history' to 'world history'
@@ -258,6 +339,8 @@ suggestionBtnEl.addEventListener("click", function(event) {
 //event listener for 'feeling lucky' button
 feelingLuckyBtnEl.addEventListener("click", function() {
     console.log("'Feeling Lucky' Btn Clicked");
+    bookResultsArr = [];
+    console.log(bookResultsArr + "cleared")
     //creates random number for index of genreArr[]
     var genreIndex = Math.floor(Math.random() * (genreArr.length -1))
     console.log("random genre index: " + genreIndex)
@@ -344,5 +427,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+
+
 
 
