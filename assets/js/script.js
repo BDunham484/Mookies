@@ -111,10 +111,8 @@ var getSearchResults = function(searchQuery, numFound, num) {
                   createListItems(searchQuery, title, author, coverId, randoOffsetNum)
 
                 }
-                
-               
-                
-                });
+              
+              });
             };
         });
     };
@@ -183,7 +181,7 @@ var createListItems = function(subject, title, author, coverId, randoOffsetNum) 
 
 
 
-//function that creates modals for each search result
+//function that dynamically creates modals for each search result
 var createModals = function(title, author, coverId, randoOffsetNum) {
   var modal = document.createElement("div");
   modal.setAttribute("id", "modal-" + randoOffsetNum);
@@ -197,10 +195,6 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
   var modalContent = document.createElement("div");
   modalContent.className = "modal-content";
   modal.appendChild(modalContent);
-
-  // var modalBox = document.createElement("div");
-  // modalBox.className = "box";
-  // modalContent.appendChild(modalBox);
 
   var modalCard = document.createElement("div");
   modalCard.classList.add("card");
@@ -236,9 +230,6 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
   modalAuthorP.classList.add("subtitle", "is-7");
   modalAuthorP.textContent = author;
   modalLowerContent.appendChild(modalAuthorP);
-
-  
-
 
   var modalButton = document.createElement("button");
   modalButton.classList.add("modal-close", "is-large");
@@ -303,22 +294,19 @@ bookResultsColEl.addEventListener("click", function(event) {
 
 
 
+//event listener to remove is-active class from dynamic modals
+modalSectionEl.addEventListener("click", function(event) {
+  console.log("background is clicked")
+  var target = event.target;
+  console.log(target)
+  target.parentElement.classList.remove("is-active");
+})
 
 
 
 
 
-// modalBackgroundEl.addEventListener("click", function(event) {
-//   console.log("background is clicked")
-//   var target = event.target;
-//   console.log(target)
-// })
-
-
-
-
-
-
+//bulma event listener for modals
 document.addEventListener('DOMContentLoaded', () => {
     // Functions to open and close a modal
     function openModal($el) {
