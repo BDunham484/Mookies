@@ -78,7 +78,7 @@ var getSearchResults = function(searchQuery, numFound) {
             var coverId = data.docs[0].cover_i
             console.log("cover id: " + coverId)
             var randoOffsetNum = data.offset;
-            console.log(randoOffsetNum)
+            console.log("offset #: " + randoOffsetNum)
             var book = {
               query: searchQuery,
               cover: coverId,
@@ -87,11 +87,11 @@ var getSearchResults = function(searchQuery, numFound) {
               offsetNum: randoOffsetNum
             }
             console.log("book object: " +JSON.stringify(book))
-
+            //push object to array
             bookResultsArr.push(book)
-            console.log(bookResultsArr)
-
+            //save array to local storage
             localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
+            //call createListItems
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
           } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
             var title = "Title Unknown"
@@ -102,7 +102,7 @@ var getSearchResults = function(searchQuery, numFound) {
             };
             var coverId = undefined
             var randoOffsetNum = data.offset;
-            console.log(randoOffsetNum)
+            console.log("offset #: " + randoOffsetNum)
             var book = {
               query: searchQuery,
               cover: coverId,
@@ -111,11 +111,11 @@ var getSearchResults = function(searchQuery, numFound) {
               offsetNum: randoOffsetNum
             }
             console.log("book object: " + JSON.stringify(book))
-
+            //push object to array
             bookResultsArr.push(book)
-            console.log(bookResultsArr)
-
+            //save array to localStorage
             localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
+            //call createListItems
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
           } else {
             var title = data.docs[0].title
@@ -129,7 +129,7 @@ var getSearchResults = function(searchQuery, numFound) {
             var coverId = data.docs[0].cover_i
             console.log("cover id: " + coverId)
             var randoOffsetNum = data.offset;
-            console.log(randoOffsetNum)
+            console.log("offset #: " + randoOffsetNum)
             var book = {
               query: searchQuery,
               cover: coverId,
@@ -138,11 +138,11 @@ var getSearchResults = function(searchQuery, numFound) {
               offsetNum: randoOffsetNum
             }
             console.log("book object: " + JSON.stringify(book))
-
+            //push object to array
             bookResultsArr.push(book)
-            console.log(bookResultsArr)
-
+            //save array to localStorage
             localStorage.setItem("Books:", JSON.stringify(bookResultsArr))
+            //call createListItems()
             createListItems(searchQuery, title, author, coverId, randoOffsetNum)
           };
         });
@@ -159,24 +159,23 @@ var getSearchResults = function(searchQuery, numFound) {
   var pageLoad = function() {
     bookResultsArr = [];
     bookResultsArr = JSON.parse(localStorage.getItem("Books:"));
-    console.log("YO, THIS IS THE STUFF FROM LOCAL STORAGE!: " + bookResultsArr)
-    console.log(bookResultsArr.length)
-    for (var i = 0; i < bookResultsArr.length; i++) {
-      var searchQuery = bookResultsArr[i].query
-        console.log(searchQuery)
-        searchInputEl.value = searchQuery;
-      var coverId = bookResultsArr[i].cover 
-        console.log(coverId)
-      var title = bookResultsArr[i].title
-        console.log(title)
-      var author = bookResultsArr[i].author
-        console.log(author)
-      var randoOffsetNum = bookResultsArr[i].offsetNum
-        console.log(randoOffsetNum)
-      createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-    }
-  }
-
+    if (localStorage.getItem("Books:") === null) {
+      console.log("localStorage is empty");
+    } else {
+         //loop to assign info from localStorage to variables to be passed as arguments in createListItems
+        for (var i = 0; i < bookResultsArr.length; i++) {
+          var searchQuery = bookResultsArr[i].query
+          //assign search input value
+          searchInputEl.value = searchQuery;
+          var coverId = bookResultsArr[i].cover   
+          var title = bookResultsArr[i].title
+          var author = bookResultsArr[i].author
+          var randoOffsetNum = bookResultsArr[i].offsetNum
+          //call createListItems
+          createListItems(searchQuery, title, author, coverId, randoOffsetNum)
+        };
+    };
+  };
 
 
 
@@ -240,13 +239,6 @@ var createListItems = function(subject, title, author, coverId, randoOffsetNum) 
 
 
 
-
-
-
-
-
-
-
 //function that dynamically creates modals for each search result
 var createModals = function(title, author, coverId, randoOffsetNum) {
   var modal = document.createElement("div");
@@ -268,6 +260,7 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
 
   var modalCardContent = document.createElement("div");
   modalCardContent.className = "card-content";
+  modalCardContent.setAttribute("id", "modal-card-content")
   modalCard.appendChild(modalCardContent);
 
   var modalMedia = document.createElement("div");
@@ -280,7 +273,15 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
 
   var modalFigure = document.createElement("figure");
   modalFigure.classList.add("image", "is-48x58");
+  //provide alternative display in case there is no book cover
+  if (coverId === undefined) {
+    modalFigure.classList.add("missing-cover", "has-text-centered", "pt-6")
+    modalFigure.textContent = "Cover Missing"
+    modalFigure.setAttribute("data-target", "modal-" + randoOffsetNum)
+  } else {
+  //provide image link for coverListItem
   modalFigure.innerHTML = "<img src='https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg' data-target='modal-" + randoOffsetNum + "'/>"
+  }
   modalMediaLeft.appendChild(modalFigure);
 
   var modalLowerContent = document.createElement("div");
@@ -297,6 +298,33 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
   modalAuthorP.textContent = author;
   modalLowerContent.appendChild(modalAuthorP);
 
+  var modalOpenLibraryLink = document.createElement("a");
+  modalOpenLibraryLink.classList.add("subtitle", "is-5");
+  modalOpenLibraryLink.setAttribute("href", "https://www.openlibrary.org/search?q=" + title + " " + author + "&mode=everything");
+  modalOpenLibraryLink.setAttribute("target", "_blank");
+  modalOpenLibraryLink.textContent = "Find on Open Library"
+  modalLowerContent.appendChild(modalOpenLibraryLink);
+
+  var modalLineBreak = document.createElement("br");
+  modalLowerContent.appendChild(modalLineBreak);
+
+  var modalAmazonLink = document.createElement("a");
+  modalAmazonLink.classList.add("subtitle", "is-5");
+  modalAmazonLink.setAttribute("href", "https://www.amazon.com/s?k=" + title + " " + author + "&i=stripbooks");
+  modalAmazonLink.setAttribute("target", "_blank");
+  modalAmazonLink.textContent = "Find on Amazon"
+  modalLowerContent.appendChild(modalAmazonLink);
+
+  var modalLineBreak = document.createElement("br");
+  modalLowerContent.appendChild(modalLineBreak);
+
+  var modalAudibleLink = document.createElement("a");
+  modalAudibleLink.classList.add("subtitle", "is-5");
+  modalAudibleLink.setAttribute("href", "https://www.audible.com/search?keywords=" + title + " " + author);
+  modalAudibleLink.setAttribute("target", "_blank");
+  modalAudibleLink.textContent = "Find on Audible";
+  modalLowerContent.appendChild(modalAudibleLink);
+
   var modalButton = document.createElement("button");
   modalButton.classList.add("modal-close", "is-large");
   modalButton.setAttribute("aria-label", "close")
@@ -307,7 +335,7 @@ var createModals = function(title, author, coverId, randoOffsetNum) {
 
 
 
-
+//calls pageLoad function that pulls info from localStorage and distributes to the appropriate functions
 pageLoad();
 
 
@@ -317,8 +345,9 @@ pageLoad();
 suggestionBtnEl.addEventListener("click", function(event) {
     event.preventDefault();
     console.log("'Get Suggestions' button clicked")
+    //clear bookResultsArr 
     bookResultsArr = [];
-    console.log(bookResultsArr + "cleared")
+    console.log("bookResultsArr has been cleared")
     var searchQuery = searchInputEl.value.trim();
     console.log("search input: " + searchQuery)
     //convert query for 'history' to 'world history'
@@ -339,8 +368,9 @@ suggestionBtnEl.addEventListener("click", function(event) {
 //event listener for 'feeling lucky' button
 feelingLuckyBtnEl.addEventListener("click", function() {
     console.log("'Feeling Lucky' Btn Clicked");
+    //clear bookResults Arr
     bookResultsArr = [];
-    console.log(bookResultsArr + "cleared")
+    console.log("bookResultsArr has been cleared")
     //creates random number for index of genreArr[]
     var genreIndex = Math.floor(Math.random() * (genreArr.length -1))
     console.log("random genre index: " + genreIndex)
@@ -356,13 +386,14 @@ feelingLuckyBtnEl.addEventListener("click", function() {
 
 
 
-//eventlistener for dynamic list items
+//eventlistener for clicks on dynamic list items
 bookResultsColEl.addEventListener("click", function(event) {
   var target = event.target;
-  console.log("book is clicked");
+  //assign unigue id to variable
   var targetId = "#" + target.getAttribute("data-target");
-  console.log(targetId)
+  console.log("list-item with a target Id of " + targetId + " has been clicked.")
   var targetIdEl = document.querySelector(targetId);
+  //add 'is-active' class to acitivate modal
   targetIdEl.classList.add("is-active");
 })
 
@@ -372,9 +403,7 @@ bookResultsColEl.addEventListener("click", function(event) {
 
 //event listener to remove is-active class from dynamic modals
 modalSectionEl.addEventListener("click", function(event) {
-  console.log("background is clicked")
   var target = event.target;
-  console.log(target)
   target.parentElement.classList.remove("is-active");
 })
 
@@ -427,7 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
 
 
 

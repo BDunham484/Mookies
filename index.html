@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/bd16a95e3e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    
     <link rel="stylesheet" href="./assets/css/style.css">
+    
     <title>Movie/Book Thing</title>
+    
+
 </head>
 <body>
     <header>
@@ -24,15 +29,20 @@
         </div>
         <form>
             <div class="field">
-                <div class="control is-loading">
+                <div class="control has-icons-right">
+                    
                     <input class="input is-medium is-rounded" type="text" id="search-input" placeholder="Horror....  Science-Fiction.... Action .....">
+                    <!-- <span class="icon is-small is-right">
+                        <i class="fa-solid fa-circle-xmark" id="delete-button"></i>
+                    </span> -->
                 </div>
                 
                     <input class="button is-warning my-4" type="submit" id="get-suggestions" value="Get Suggestions">
                     <input class="button is-warning my-4" type="click" id="feeling-lucky" value="Feeling Lucky?">
-
+                    
             </div>
         </form>
+        
         <section>
             <div class="columns">
                 <section class="column is-6">

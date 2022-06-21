@@ -43,6 +43,18 @@ form {
     width: 200px;
 }
 
+#delete-button {
+    fill: black;
+    width: 30px;
+    height: 30px;
+    color: black;
+    /* background-color: aqua; */
+}
+
+#delete-button:hover {
+    width: 33px;
+}
+
 
 #book-results {
     width: 30vw;
@@ -62,6 +74,14 @@ form {
 
 .card-content {
     background-color: rgb(251, 246, 240);
+}
+
+#modal-card-content {
+    width: 265px;
+}
+
+.break-space {
+    margin: 15px 0;
 }
 
 figure {
