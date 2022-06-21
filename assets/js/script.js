@@ -48,74 +48,67 @@ var getNumFound = function(searchQuery)  {
 
 
 
-
-
-
-
-
 //function that takes the search query and the number of results to randomize the selections
-var getSearchResults = function(searchQuery, numFound, num) {
-    for (var i = 0; i < 5; i++) {
-         //randomize search result display offset based off the number of results in open library for that query
-        var randoOffsetNum = Math.floor(Math.random() * (numFound - 1))
-        if (randoOffsetNum === 0) {
-          var randoOffsetNum = 1;
-        }
-        console.log("random result number: " + randoOffsetNum)
-        
+var getSearchResults = function(searchQuery, numFound) {
+  for (var i = 0; i < 5; i++) {
+    //randomize search result display offset based off the number of results in open library for that query
+    var randoOffsetNum = Math.floor(Math.random() * (numFound - 1))
+    if (randoOffsetNum === 0) {
+      var randoOffsetNum = 1;
+    }
+    console.log("random result number: " + randoOffsetNum)
+    
 
-        var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery + "&limit=1&offset=" + randoOffsetNum
-        //fetches data from open library and saves the necessary data to variable
-        fetch(apiUrl).then(function(response) {
-            if (response.ok) {
-                response.json().then(function(data) {
-                console.log(data)
-                if (data.docs[0].publisher === undefined) {
-                  var title = data.docs[0].title
-                  console.log("the title: " + title)
-                  if (!data.docs[0].author_name) {
-                      var author = "Author Unknown"
-                  } else {
-                      var author = data.docs[0].author_name[0]
-                  }
-                  console.log("the author: " + author)
-                  var coverId = data.docs[0].cover_i
-                  console.log("cover id: " + coverId)
-                  var randoOffsetNum = data.offset;
-                  console.log(randoOffsetNum)
-                  createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-                } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
-                  var title = "Title Unknown"
-                  if (!data.docs[0].author_name) {
-                    var author = "Author Unknown"
-                  } else {
-                    var author = "Author Unknown"
-                  }
-                  var coverId = undefined
-                  var randoOffsetNum = data.offset;
-                  console.log(randoOffsetNum)
-                  createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-                } else {
-                  var title = data.docs[0].title
-                  console.log("the title: " + title)
-                  if (!data.docs[0].author_name) {
-                      var author = "Author Unknown"
-                  } else {
-                      var author = data.docs[0].author_name[0]
-                  }
-                  console.log("the author: " + author)
-                  var coverId = data.docs[0].cover_i
-                  console.log("cover id: " + coverId)
-                  var randoOffsetNum = data.offset;
-                  console.log(randoOffsetNum)
-                  createListItems(searchQuery, title, author, coverId, randoOffsetNum)
-
-                }
-              
-              });
+    var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery + "&limit=1&offset=" + randoOffsetNum
+    //fetches data from open library and saves the necessary data to variable
+    fetch(apiUrl).then(function(response) {
+      if (response.ok) {
+          response.json().then(function(data) {
+          console.log(data)
+          if (data.docs[0].publisher === undefined) {
+            var title = data.docs[0].title
+            console.log("the title: " + title)
+            if (!data.docs[0].author_name) {
+                var author = "Author Unknown"
+            } else {
+                var author = data.docs[0].author_name[0]
             };
+            console.log("the author: " + author)
+            var coverId = data.docs[0].cover_i
+            console.log("cover id: " + coverId)
+            var randoOffsetNum = data.offset;
+            console.log(randoOffsetNum)
+            createListItems(searchQuery, title, author, coverId, randoOffsetNum)
+          } else if (data.docs[0].publisher[0].toLowerCase() === "safe america press") {
+            var title = "Title Unknown"
+            if (!data.docs[0].author_name) {
+              var author = "Author Unknown"
+            } else {
+              var author = "Author Unknown"
+            };
+            var coverId = undefined
+            var randoOffsetNum = data.offset;
+            console.log(randoOffsetNum)
+            createListItems(searchQuery, title, author, coverId, randoOffsetNum)
+          } else {
+            var title = data.docs[0].title
+            console.log("the title: " + title)
+            if (!data.docs[0].author_name) {
+                var author = "Author Unknown"
+            } else {
+                var author = data.docs[0].author_name[0]
+            };
+            console.log("the author: " + author)
+            var coverId = data.docs[0].cover_i
+            console.log("cover id: " + coverId)
+            var randoOffsetNum = data.offset;
+            console.log(randoOffsetNum)
+            createListItems(searchQuery, title, author, coverId, randoOffsetNum)
+          };
         });
-    };
+      };
+    });
+  };
 };
 
 
