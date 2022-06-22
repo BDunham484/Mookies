@@ -27,6 +27,12 @@ The following image shows a basic wireframe depiciton of the web application's a
 * WHEN I select a specific movie or book out of either of the lists
 * THEN I am preseneted with a modal of the selected title with info,links to purchase, list of where to stream, and maybe a link to the corresponding movie or book of the same title (if any)
 
+## Technologies We Used:
+* Javascript
+*HTML
+*CSS
+*IMDB API
+
 ## Presentation
 
 ![screenshot of slideshow #1](./assets/images/Screenshot1.png)
