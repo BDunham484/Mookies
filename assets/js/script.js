@@ -1,15 +1,124 @@
+//BOOK API varabiles
 var bookSearchResultsEl = document.querySelector("#book-results");
 var suggestionBtnEl = document.querySelector("#get-suggestions");
 var feelingLuckyBtnEl = document.querySelector("#feeling-lucky");
 var searchInputEl = document.querySelector("#search-input");
 var bookListEl = document.querySelector("#book-results")
 var bookResultsColEl = document.querySelector("#book-results-column")
+//MOVIE API varabiles
+// var movieSearchResultsEl = document.querySelector("#movie-results");
+var movieListEl = document.querySelector("#movie-results");
+var movieResultsColEl = document.querySelector("#movie-results-column");
 
 var genreArr = ["action", "romance", "thriller", "sports", "comedy", "science fiction", "horror", "drama", "fantasy", "mystery", "western", "crime", "fiction", "adventure", "experimental", "disaster", "war", "documentary", "gangster", "animation", "indie", "romantic comedy", "cartoon", "children"]
 
+//function that gets the number of search results
+var getMovieFound = function(searchQuery) {
+    while (movieListEl.firstChild) {
+        movieListEl.removeChild(movieListEl.firstChild);
+    }
+    var apiUrl = "https://imdb-api.com/en/API/SearchKeyword/k_zulp8liu/" + searchQuery
+
+    fetch(apiUrl).then(function(response) {
+        if (response.ok) {
+            response.json(). then(function(data) {
+                console.log(data)
+                var numFound = 100
+                var movieFound = data.results[0].title
+                console.log("The number of results found with this query:" + movieFound)
+                getSearchResults(searchQuery, numFound)
+            });
+        } else{
+            console.log("There was an error with the respone");
+        }
+    }).catch(function(error){
+        console.log("Cannot compute!");
+    });
+};
+// function that takes the search query and the number of results to randomize the selections
+var getSearchResults = function(searchQuery, numFound) {
+    for (var i = 0; i < 5; i++) {
+         //randomize search result display offset based off the number of results in open library for that query
+        var randoOffsetNum = Math.floor(Math.random() * (numFound - 6))
+        console.log("random result number: " + randoOffsetNum)
 
 
 
+        var apiUrl = "https://imdb-api.com/en/API/Keyword/k_zulp8liu" + searchQuery + "&limit=1&offset=" + randoOffsetNum
+        //fetches data from open library and saves the necessary data to variables
+        fetch(apiUrl).then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                console.log(data)
+                var title = data.docs[0].title
+                console.log("the movie: " + title)
+                if (!data.docs[0].author_name) {
+                    var author = "Director Unknow"
+                } else {
+                    var author = data.docs[0].director_name[0]
+                }
+                console.log("the director: " + author)
+                var coverId = data.docs[0].cover_i
+                console.log("movie id: " + coverId)
+                createListItems(searchQuery, title, director, movieId)
+                createMovieItems(subject, title, director, movieId)
+                });
+            };
+        });
+    };
+};
+//Moive function displays results
+
+// function that displays results from getSearchResults()
+function createMovieItems(subject, title, director, movieId) {
+    //create list-items for each book
+    var resultsMovieItem = document.createElement("li");
+    resultsMovieItem.className = "pt-6";
+    //append list-item to ul #book-results
+    movieListEl.appendChild(resultsMovieItem);
+    //begin dunamically creating bulma css card to display book search results
+    var card = document.createElement("div");
+    card.className = "card";
+    resultsMovieItem.appendChild(card);
+
+    var cardContent = document.createElement("div");
+    cardContent.className = "card-content";
+    card.appendChild(cardContent);
+
+    var cardMedia = document.createElement("div");
+    cardMedia.className = "media";
+    cardContent.appendChild(cardMedia);
+
+    var mediaLeft = document.createElement("div");
+    mediaLeft.className = "media-right";
+    cardMedia.appendChild(mediaLeft);
+
+    var cardFigure = document.createElement("figure");
+    cardFigure.classList.add("image", "is-48x58");
+    //provide alternative display in case there is no book cover
+    if (coverId === undefined) {
+        cardFigure.classList.add("missing-poster", "has-text-centered", "pt-6");
+        cardFigure.textContent = "Missing Poster";
+    } else {
+        //provide image link for coverListItem
+        cardFigure.innerHTML = "assets/images/1000_F_301832885_XSg1F3ba571JjJ1RCrSnXs5VFvyopVMD.jpg" + coverId + "-M.jpg' />";
+    }
+    mediaLeft.appendChild(cardFigure);
+
+    var content = document.createElement("div");
+    content.className = "content";
+    cardContent.appendChild(content);
+    //create and append the book title
+    var cardTitle = document.createElement("p");
+    cardTitle.classList.add("title", "is-5");
+    cardTitle.textContent = title;
+    content.appendChild(cardTitle);
+    //create and append the author
+    var cardAuthor = document.createElement("p");
+    cardAuthor.classList.add("subtitle", "is-7");
+    cardAuthor.textContent = author;
+    content.appendChild(cardAuthor);
+}
 
 //function that gets the number of search results
 var getNumFound = function(searchQuery)  {
@@ -42,7 +151,7 @@ var getNumFound = function(searchQuery)  {
 var getSearchResults = function(searchQuery, numFound) {
     for (var i = 0; i < 5; i++) {
          //randomize search result display offset based off the number of results in open library for that query
-        var randoOffsetNum = Math.floor(Math.random() * (numFound - 6))
+        var randoOffsetNum = Math.floor(Math.random() * (numFound - 1))
         console.log("random result number: " + randoOffsetNum)
 
 
@@ -160,6 +269,7 @@ feelingLuckyBtnEl.addEventListener("click", function() {
     searchInputEl.value = genreArr[genreIndex];
     //calls function to begin search for randomly selected genre
     getNumFound(genreArr[genreIndex]);
+    getMovieFound(genreArr[genreIndex]);
 })
 
 
