@@ -25,6 +25,16 @@ body {
 /* HEADER STYLES START */
 h1 {
     margin: 1.5rem 0;
+    color: #1d0e58
+}
+
+#nav {
+    background-color: #b3fffc;
+}
+
+.button {
+    background-color: #1d0e58;
+    color: #b3fffc;
 }
 /* HEADER STYLES END */
 
@@ -139,3 +149,9 @@ footer {
         
     }
 } */
+
+form {
+    margin: 0 auto;
+}
+
+
