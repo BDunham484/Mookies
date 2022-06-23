@@ -14,3 +14,35 @@ html, body {
     overflow-x: hidden;
 }
 /* UNIVERSAL/GLOBAL STYLES END */
+
+.button {
+padding: 20px 20x;   
+background-color: orange;
+borders: orange;
+margin: 25px 50px;
+}
+
+main {
+margin: 0 auto;
+width: 960px;
+display: flex;
+}
+
+.section {
+    width: 30%;
+}
+
+.header {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.input {
+    width: 40%;
+}
+
+.h1 {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
