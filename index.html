@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/bd16a95e3e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Movie/Book Thing</title>
+    <title>MOOKIES</title>
 </head>
+
+
 <body>
     <header>
-        <nav class="navbar is-dark is-fixed-top is-flex is-justify-content-center is-align-content-center" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-dark is-fixed-top is-flex is-justify-content-center is-align-content-center"
+            role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <h1 class="title has-text-white is-size-1">MOOKIES</h1>
             </div>
@@ -19,105 +24,49 @@
     <main>
         <div class="container mt-6 has-text-centered">
             <h2 class="is-size-4">
-                Staying In?  Let us help keep you entertained while you lounge around the house.  Tell us what kind of movie or book you're in the mood for and let our suggestions fill the void.
-            </h2>
+                Staying In? Let us help keep you entertained while you lounge around the house. Tell us what
+                kind of movie or book you're in the mood for and let our suggestions fill the void.</h2>
         </div>
         <form>
             <div class="field">
-                <div class="control is-loading">
-                    <input class="input is-medium is-rounded" type="text" id="search-input" placeholder="Horror....  Science-Fiction.... Action .....">
+                <div class="control has-icons-right">
+
+                    <input class="input is-medium is-rounded" type="text" id="search-input"
+                        placeholder="Horror.... Science-Fiction.... Action .....">
+                    <!-- <span class="icon is-small is-right">
+<i class="fa-solid fa-circle-xmark" id="delete-button"></i>
+</span> -->
                 </div>
-                
-                    <input class="button is-warning my-4" type="submit" id="get-suggestions" value="Get Suggestions">
-                    <input class="button is-warning my-4" type="click" id="feeling-lucky" value="Feeling Lucky?">
+
+                <input class="button is-warning my-4" type="submit" id="get-suggestions" value="Get
+        Suggestions">
+                <input class="button is-warning my-4" type="click" id="feeling-lucky" value="Feeling Lucky?">
 
             </div>
         </form>
+
         <section>
             <div class="columns">
-                <section class="column-count 6">
+                <!-- MOVIE COLUMN -->
+                <section class="column is-6">
                     <h3 class="my-4 has-text-centered">Grab Some Popcorn....</h3>
-                        <section class="columns is-centered">
-                            <div class="column is-half">
-                                <ul id="movie-results">
-                                    <li class="pt-6">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <div class="media">
-                                                    <div class="media-right">
-                                                        <figure class="image is-48x58">
-                                                        <img class="posters" src="assets/images/1000_F_301832885_XSg1F3ba571JjJ1RCrSnXs5VFvyopVMD.jpg" alt="Movie Poster Holder">
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                    <p class="title is-5">A Spectrum Unseen</p>
-                                                    <p class="subtitle is-7">John Smith</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="pt-5">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <div class="media">
-                                                    <div class="media-right">
-                                                        <figure class="image is-48x58">
-                                                            <img class="posters" src="assets/images/1000_F_301832885_XSg1F3ba571JjJ1RCrSnXs5VFvyopVMD.jpg" alt="Movie Poster Holder">
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                    <p class="title is-5">A Spectrum Unseen</p>
-                                                    <p class="subtitle is-7">John Smith</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
+                    <section class="columns is-centered">
+                        <div class="column is-three-quarters" id="movie-results-column">
+                            <ul id="movie-results">
+                                <!-- DYNAMIC LIST ITEMS/SEARCH RESULTS -->
+
+                            </ul>
+                        </div>
                     </section>
-            </section>
-                <section class="column-count 6">
+                </section>
+
+                <!-- BOOK COLUMN -->
+                <section class="column is-6">
                     <h3 class="my-4 has-text-centered">Or curl up with a good book!</h3>
                     <section class="columns is-centered">
-                        <div class="column is-half" id="book-results-column">
+                        <div class="column is-three-quarters" id="book-results-column">
                             <ul id="book-results">
-                                <li class="pt-5">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <figure class="image is-48x58">
-                                                    <img class="covers" src="https://covers.openlibrary.org/b/id/6918101-M.jpg" alt="Placeholder image">
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="content">
-                                                <p class="title is-5">A Spectrum Unseen</p>
-                                                <p class="subtitle is-7">John Smith</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pt-5">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <figure class="image is-48x58">
-                                                    <img class="covers" src="https://covers.openlibrary.org/b/id/6918101-M.jpg" alt="Placeholder image">
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="content">
-                                                <p class="title is-5">A Spectrum Unseen</p>
-                                                <p class="subtitle is-7">John Smith</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+
                             </ul>
                         </div>
                     </section>
@@ -125,11 +74,31 @@
             </div>
         </section>
 
+        <!-- NO MATCHES MODAL -->
+        <div id="no-matches-modal" class="modal">
+            <div class="modal-background"></div>
 
-        
+            <div class="modal-content">
+                <div class="box">
+
+                    <p>Oops!</p>
+                    <h3>Sorry, but there are no mathces to your search. Please try again.</h3>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+        <!-- SECTION TO HOUSE DYNAMIC MODALS -->
+        <section class="modal-section">
+
+        </section>
     </main>
-    
+    <footer>
+        <button class="js-modal-trigger" id="modal-trigger" data-target="no-matches-modal">
+        </button>
+    </footer>
 
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
