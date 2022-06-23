@@ -50,6 +50,7 @@ form {
     width: 33px;
 }
 
+<<<<<<< HEAD
 #movie-results {
 
     width: 30vw;
@@ -71,11 +72,14 @@ form {
     /* IE6-9 */
     /* background-color: rgba(149,151,153,.5); */
 }
+=======
+>>>>>>> fed84ebfbf14d3958b1305c0bdf98d05ac717948
 
 #book-results {
     width: 30vw;
     min-height: 50vh;
     margin: 0 auto;
+<<<<<<< HEAD
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-
     editor/#959799+0,7db9e8+100&amp;1+0,0+100 */
     background: -moz-linear-gradient(top, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
@@ -92,6 +96,14 @@ form {
     /* IE6-9 */
     /* background-color: rgba(149,151,153,.5); */
 
+=======
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#959799+0,7db9e8+100&1+0,0+100 */
+    background: -moz-linear-gradient(top,  rgba(149,151,153,.35) 0%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(149,151,153,.35) 0%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(149,151,153,.35) 0%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+    /* background-color: rgba(149,151,153,.5); */
+>>>>>>> fed84ebfbf14d3958b1305c0bdf98d05ac717948
 }
 
 .card {
@@ -138,5 +150,10 @@ footer {
     bottom: -50px;
     left: -50px;
 }
+<<<<<<< HEAD
 
 /* FOOTER STYLES END */
+=======
+/* FOOTER STYLES END */
+
+>>>>>>> fed84ebfbf14d3958b1305c0bdf98d05ac717948
