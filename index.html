@@ -17,10 +17,10 @@
 
 <body>
     <header>
-        <nav class="navbar is-dark is-fixed-top is-flex is-justify-content-center is-align-content-center"
-            role="navigation" aria-label="main navigation">
+        <nav class="navbar  is-fixed-top is-flex is-justify-content-center is-align-content-center"
+            role="navigation" aria-label="main navigation" id="nav">
             <div class="navbar-brand">
-                <h1 class="title has-text-white is-size-1">MOOKIES</h1>
+                <h1 class="title is-size-1">MOOKIES</h1>
             </div>
         </nav>
     </header>
@@ -31,20 +31,27 @@
                 movie or book you're in the mood for and let our suggestions fill the void.
             </h2>
         </div>
-        <form>
+        <form class="is-centered">
             <div class="field">
                 <div class="control has-icons-right">
 
-                    <input class="input is-medium is-rounded" type="text" id="search-input"
+                    <input class="input is-medium is-rounded " type="text" id="search-input"
                         placeholder="Horror....  Science-Fiction.... Action .....">
                     <span class="icon is-right">
                         <i class="fa-solid fa-circle-xmark fa-2x" id="delete-button"></i>
                     </span>
                     
                 </div>
-
-                <input class="button is-warning my-4" type="submit" id="get-suggestions" value="Get Suggestions">
-                <input class="button is-warning my-4" type="click" id="feeling-lucky" value="Feeling Lucky?">
+                <div class="columns is-centered" id="testing">
+                    <div class="column has-text-centered">
+                        <input class="button my-4" type="submit" id="get-suggestions" value="Get Suggestions">
+                    </div>
+                    <div class="column has-text-centered">
+                        <input class="button my-4" type="click" id="feeling-lucky" value="Feeling Lucky?">
+                    </div>
+                    
+                </div>
+               
 
             </div>
         </form>
@@ -53,7 +60,7 @@
             <div class="columns">
                 <!-- MOVIE COLUMN -->
                 <section class="column is-6">
-                    <h3 class="my-4 has-text-centered">Grab Some Popcorn....</h3>
+                    <h3 class="my-4 has-text-centered is-size-4">Grab Some Popcorn....</h3>
                     <section class="columns is-centered">
                         <div class="column is-three-quarters" id="movie-results-column">
                             <ul id="movie-results">
@@ -66,7 +73,7 @@
                 
                 <!-- BOOK COLUMN -->
                 <section class="column is-6">
-                    <h3 class="my-4 has-text-centered">Or curl up with a good book!</h3>
+                    <h3 class="my-4 has-text-centered is-size-4">Or curl up with a good book!</h3>
                     <section class="columns is-centered">
                         <div class="column is-three-quarters" id="book-results-column">
                             <ul id="book-results">
