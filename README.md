@@ -26,3 +26,15 @@ The following image shows a basic wireframe depiciton of the web application's a
 * THEN I am presented with a list of movies on the left and books on the right based off a randomly generated genre
 * WHEN I select a specific movie or book out of either of the lists
 * THEN I am preseneted with a modal of the selected title with info,links to purchase, list of where to stream, and maybe a link to the corresponding movie or book of the same title (if any)
+
+## Technologies We Used:
+* Javascript
+*HTML
+*CSS
+*IMDB API
+
+## Presentation
+
+![screenshot of slideshow #1](./assets/images/Screenshot1.png)
+![screenshot of slideshow #2](./assets/images/Screenshot2.png)
+![screenshot of homescreen added](./assets/images/homescreen.png)
