@@ -37,3 +37,4 @@ The following image shows a basic wireframe depiciton of the web application's a
 
 ![screenshot of slideshow #1](./assets/images/Screenshot1.png)
 ![screenshot of slideshow #2](./assets/images/Screenshot2.png)
+![screenshot of homescreen added](./assets/images/homescreen.png)
