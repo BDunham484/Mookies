@@ -12,10 +12,9 @@
 
 html,
 body {
-    /* overflow-x: hidden; */
     min-height: 100vh;
+    background-color: #B7C1CD;
 }
-
 /* UNIVERSAL/GLOBAL STYLES END */
 
 
@@ -25,17 +24,14 @@ body {
 /* HEADER STYLES START */
 h1 {
     margin: 1.5rem 0;
-    color: #1d0e58
+    color: #b3fffc !important;
 }
 
 #nav {
-    background-color: #b3fffc;
+    background-color: #435060;
+    
 }
 
-.button {
-    background-color: #1d0e58;
-    color: #b3fffc;
-}
 /* HEADER STYLES END */
 
 
@@ -44,35 +40,59 @@ h1 {
 
 /* MAIN STYLES START */
 main {
-    margin-top: 9rem;
+    margin-top: 6rem;
+    background-color: #B7C1CD;
+}
+
+#top-text {
+    width: 55vw;
 }
 
 form {
     width: 65%;
+    margin: 0 auto;
+}
+
+
+#search-input {
+    background-color: rgb(251, 246, 240);
+}
+
+#delete-button {
+    color:rgba(147, 241, 221); 
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.button {
+    background-color: #435060;
+    color: #b3fffc;
+    box-shadow: -5px 5px 5px rgb(95, 93, 93);
+}
+
+.button:hover {
+    color: #F5E1F5;
+}
+
+.button:focus {
+    color: #E0A3E0;
 }
 
 .image {
     width: 200px;
 }
 
-
-
-.icon {
-    cursor: pointer;
-    pointer-events: auto !important;
-}
-
-
 #movie-results {
+    border-radius: 70%;
     min-width: 30vw;
     min-height: 50vh;
     margin: 0 auto;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#959799+0,7db9e8+100&1+0,0+100 */
-    background: -moz-linear-gradient(top, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
+    background: -moz-linear-gradient(top, rgba(147, 241, 221, .35) 0%, rgba(125, 185, 232, 0) 100%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
+    background: -webkit-linear-gradient(top, rgba(147, 241, 221, .35) 0%, rgba(125, 185, 232, 0) 100%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
+    background: linear-gradient(to bottom, rgba(147, 241, 221, .35) 0%, rgba(125, 185, 232, 0) 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#959799', endColorstr='#007db9e8', GradientType=0);
     /* IE6-9 */
@@ -81,15 +101,16 @@ form {
 
 
 #book-results {
+    border-radius: 70%;
     min-width: 30vw;
     min-height: 50vh;
     margin: 0 auto;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#959799+0,7db9e8+100&1+0,0+100 */
-    background: -moz-linear-gradient(top, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
+    background: -moz-linear-gradient(top, rgba(147, 241, 221, .35) 0%, rgba(125, 185, 232, 0) 100%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
+    background: -webkit-linear-gradient(top, rgba(147, 241, 221, .35) 0%, rgba(125, 185, 232, 0) 100%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(149, 151, 153, .35) 0%, rgba(125, 185, 232, 0) 100%);
+    background: linear-gradient(to bottom, rgba(147, 241, 221, .35) 0%, rgba(125, 185, 232, 0) 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#959799', endColorstr='#007db9e8', GradientType=0);
     /* IE6-9 */
@@ -120,7 +141,7 @@ figure {
 .missing-cover {
     width: 200px;
     height: 250px;
-    background-color: grey;
+    background-color: #93A2B4;
     border: solid 2px black;
     color: rgb(251, 246, 240);
     font-size: x-large;
@@ -143,15 +164,11 @@ footer {
 /* FOOTER STYLES END */
 
 
-/* MEDIA QUERIES
-@media screen and (max-width: 600px)  {
-    #movie-results {
-        
+@media screen and (max-width: 550px) {
+    #top-text {
+        width: 75vw;
     }
-} */
-
-form {
-    margin: 0 auto;
 }
+
 
 
