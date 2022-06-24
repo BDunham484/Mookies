@@ -31,7 +31,7 @@ var getNumFound = function (searchQuery) {
     bookListEl.removeChild(bookListEl.firstChild);
   }
 
-  var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery
+  var apiUrl = "https://openlibrary.org/search.json?q=" + searchQuery
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
@@ -98,7 +98,7 @@ var getSearchResults = function (searchQuery, num) {
     console.log("(Books) random result number: " + randoOffsetNum)
 
 
-    var apiUrl = "http://openlibrary.org/search.json?q=" + searchQuery + "&limit=1&offset=" + randoOffsetNum
+    var apiUrl = "https://openlibrary.org/search.json?q=" + searchQuery + "&limit=1&offset=" + randoOffsetNum
     //fetches data from open library and saves the necessary data to variable
     fetch(apiUrl).then(function (response) {
       if (response.ok) {
