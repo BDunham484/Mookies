@@ -28,13 +28,16 @@ The following image shows a basic wireframe depiciton of the web application's a
 * THEN I am preseneted with a modal of the selected title with info,links to purchase, list of where to stream, and maybe a link to the corresponding movie or book of the same title (if any)
 
 ## Technologies We Used:
-* Javascript
-*HTML
-*CSS
-*IMDB API
+* HTML
+* CSS
+* JavaScript
+* IMDB API
+* Open Library API
 
 ## Presentation
 
 ![screenshot of slideshow #1](./assets/images/Screenshot1.png)
 ![screenshot of slideshow #2](./assets/images/Screenshot2.png)
-![screenshot of homescreen added](./assets/images/homescreen.png)
+
+## Final Product
+![screenshot of homescreen added](./assets/images/mookies-screenshot.png)
