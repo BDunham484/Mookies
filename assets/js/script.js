@@ -64,7 +64,10 @@ var getMovies = function (searchQuery) {
   while (movieResultsEl.firstChild) {
     movieResultsEl.removeChild(movieResultsEl.firstChild);
   };
-  var apiUrl = "https://imdb-api.com/en/API/AdvancedSearch/k_zulp8liu/?title_type=feature&genres=" + searchQuery + "&title=" + searchQuery
+  if (searchQuery === "") {
+    console.log("There is no search query")
+  } else {
+    var apiUrl = "https://imdb-api.com/en/API/AdvancedSearch/k_zulp8liu/?title_type=feature&genres=" + searchQuery + "&title=" + searchQuery
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
@@ -80,6 +83,8 @@ var getMovies = function (searchQuery) {
   }).catch(function (error) {
     console.log("Cannot compute!");
   });
+  }
+  
 };
 
 
@@ -104,9 +109,14 @@ var getSearchResults = function (searchQuery, num) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data)
-          var title = data.docs[0].title
-          console.log("the book title: " + title)
-          if (!data.docs[0].author_name) {
+          if (data.docs.length === 0) {
+            var title = "The Case of the Missing Books";
+            var author = "Author Unknown";
+            var coverId = undefined;
+          } else {
+            var title = data.docs[0].title
+            console.log("the book title: " + title)
+          if (!data.docs[0].author_name || data.docs.length === 0) {
             var author = "Author Unknown"
           } else {
             var author = data.docs[0].author_name[0]
@@ -114,6 +124,7 @@ var getSearchResults = function (searchQuery, num) {
           console.log("the author: " + author)
           var coverId = data.docs[0].cover_i
           console.log("cover id: " + coverId)
+          }
           var randoOffsetNum = data.offset;
           console.log("offset #: " + randoOffsetNum)
           var book = {
