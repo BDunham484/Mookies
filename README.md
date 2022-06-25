@@ -36,8 +36,22 @@ The following image shows a basic wireframe depiciton of the web application's a
 
 ## Presentation
 
+
 ![screenshot of slideshow #1](./assets/images/Screenshot1.png)
 ![screenshot of slideshow #2](./assets/images/Screenshot2.png)
 
 ## Final Product
+
 ![screenshot of homescreen added](./assets/images/mookies-screenshot.png)
+
+
+* https://enterusernamee.github.io/project1/
+
+## Contribution:
+
+Made with ❤️ by The Mookies:
+- Nikki Nay
+- Terrany Binford
+- Zach Boatright
+- John Clancy
+- Brad Dunham
