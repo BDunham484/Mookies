@@ -1,5 +1,6 @@
 # project1
-Our first group project
+
+A group project for class
 
 ## User Story
 
