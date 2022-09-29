@@ -1,6 +1,8 @@
-# project1
+<h1 align="center">MOOKIES<h1>
 
-A group project for class
+
+## Description
+Mookies is movie and book idea generator powered by third party API's.  Not sure what to do this weekend?  Mookies has you covered!
 
 ## User Story
 
