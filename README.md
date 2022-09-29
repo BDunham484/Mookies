@@ -48,7 +48,7 @@ The following image shows a basic wireframe depiciton of the web application's a
 ![screenshot of homescreen added](./assets/images/mookies-screenshot.png)
 
 
-* https://bdunham484.github.io/project1/
+* https://github.com/BDunham484/Mookies
 
 ## Contribution:
 
